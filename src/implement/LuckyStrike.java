@@ -24,11 +24,9 @@ public class LuckyStrike {
 		}
 		
 		if( a==b) {
-			System.out.println("Lucky");
+			System.out.println("LUCKY");
 		} else {
-			System.out.println("Ready");
+			System.out.println("READY");
 		}
-		
-		
 	}
 }
