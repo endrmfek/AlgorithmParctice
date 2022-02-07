@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-class Node {
+class Node_s {
 	private int time;
 	private char direction;
 	
-	public Node(int time, char direction) {
+	public Node_s(int time, char direction) {
 		this.time = time;
 		this.direction = direction;
 	}
@@ -46,7 +46,7 @@ class position {
 public class Snake {
 	
 	public static int[][] arr = new int[101][101]; //맵정보.
-	public static ArrayList<Node> info = new ArrayList<>();
+	public static ArrayList<Node_s> info = new ArrayList<>();
 	public static int n,l;
 
 	//오른쪽을 보고 있죠 (동 남 서 북)
@@ -122,7 +122,7 @@ public class Snake {
 		for(int i=0; i<l; i++) {
 			int x = sc.nextInt();
 			char c = sc.next().charAt(0);
-			info.add(new Node(x,c));
+			info.add(new Node_s(x,c));
 		}
 		
 		System.out.println(simulate());
