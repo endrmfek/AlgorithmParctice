@@ -27,7 +27,7 @@ public class Router {
 			int cnt = 1;
 			
 			for(int i=0; i<n; i++) {
-				if(data[i]>= value+mid) {
+				if(data[i]>= value+mid) { //안쪽에 있으면
 					value = data[i];
 					cnt +=1;
 				}
