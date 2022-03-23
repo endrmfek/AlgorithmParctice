@@ -8,7 +8,9 @@ import java.util.Map;
 
 public class FindAnagrams {
 	public static List<List<String>> findAnagrams(List<String> dictionary) {
+		
 		Map<String, List<String>> sortedStringToAnagrams = new HashMap<>();
+		
 		for(String s : dictionary) {
 			//문자열을 정렬한 뒤, 이 정렬된 문자열을 키값으로 사용한다.
 			//그 뒤에 기존 문자열을 해시 테이블의 값에 추가한다.
