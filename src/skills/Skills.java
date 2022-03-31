@@ -1,7 +1,9 @@
 package skills;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -95,6 +97,22 @@ public class Skills {
 		}
 	}
 	
+	
+	public ArrayList<Integer> divisor (int n) { //약수구하기
+		
+		int sqrt = (int) Math.sqrt(n);
+		ArrayList<Integer> divisor = new ArrayList<>();
+		for(int i=1; i<=sqrt; i++) {
+			if(n%i == 0) {
+				divisor.add(i);
+				if(n/i != i) {
+					divisor.add(n/i);
+				}
+			}
+		}
+		divisor.sort(Comparator.naturalOrder());
+		return divisor;
+	}
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
