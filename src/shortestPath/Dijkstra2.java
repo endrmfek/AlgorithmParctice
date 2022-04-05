@@ -53,9 +53,9 @@ public class Dijkstra2 {
 			if(d[now] <dist) continue;
 			
 			for(int i=0; i<graph.get(now).size(); i++) {
-				int cost = d[now] + graph.get(now).get(i).getDistance();
+				int cost = d[now] + graph.get(now).get(i).getDistance(); // 거쳐 가는거니까/
 				
-				if(cost < d[graph.get(now).get(i).getIndex()]) {
+				if(cost < d[graph.get(now).get(i).getIndex()]) { // 다음 종착지보다 비용이 작으면 쳐넣어.
 					d[graph.get(now).get(i).getIndex()] = cost;
 					pq.offer(new node_d2(graph.get(now).get(i).getIndex(), cost));
 				}
