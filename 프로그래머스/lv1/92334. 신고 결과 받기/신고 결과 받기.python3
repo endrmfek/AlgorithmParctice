@@ -1,0 +1,26 @@
+from collections import defaultdict
+from typing import DefaultDict
+
+#이거 결국에 뭐하는거야? 신고당한놈들 잡는거잖아.
+
+def solution(id_list, report, k):
+    answer = []
+    report = set(report)
+    users = defaultdict(set)
+    count = DefaultDict(int) # 신고당한 횟수
+
+    for r in report:
+      #[신고한애 , 신고당한애]
+      a , b = r.split()
+      users[a].add(b)
+      count[b] += 1 # 신고당한 횟수
+
+    for user in id_list: #모든놈들 확인해
+      result = 0
+      for u in users[user]: #신고당한애가 u.
+        if count[u] >=k: #u 신고 몇번당했음?
+          result += 1
+      answer.append(result)
+      
+    
+    return answer
