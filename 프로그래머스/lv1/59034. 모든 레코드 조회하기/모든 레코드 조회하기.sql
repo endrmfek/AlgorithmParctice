@@ -1,0 +1,5 @@
+-- 코드를 입력하세요
+-- 모든 동물의 정보를 ANIMAL_ID순
+SELECT *
+FROM ANIMAL_INS
+GROUP BY ANIMAL_ID
