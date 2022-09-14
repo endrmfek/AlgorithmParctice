@@ -1,10 +1,16 @@
 package skills;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -135,5 +141,30 @@ public class Skills {
 		
 		//String을 int[]배열로 "12345" -> [1,2,3,4,5];
 		//Stream.of(numbers.split("")).mapToInt(Integer::parseInt).toArray();
+		
+		//List<Integer>를 정수로
+		List<Integer> a = Arrays.asList(new Integer[]{1,2,3});
+		String num = a.stream().map(String::valueOf).collect(Collectors.joining());
+		int number = Integer.valueOf(num);
+		
+		
+		//Counter 만들기.
+//		Map<String, Integer> counter = new LinkedHashMap<>();
+//		for (String i : arr) { 
+//			counter.put(i, counter.getOrDefault(i, 0) + 1);
+//		}
+//		
+//		List<Entry<String, Integer>> list = new ArrayList<>(counter.entrySet()); //여기가 중요.
+//		Collections.sort(list, (a,b) -> {
+//			return b.getValue().compareTo(a.getValue()); //내림차순
+//		});
+//		
+//		for (Entry<String, Integer> entry : list) {
+////			System.out.println(entry.getKey() + " : " + entry.getValue());
+//			answer.add(Integer.parseInt(entry.getKey()));
+//		}
+//		return answer.stream().mapToInt(i->i).toArray();
+		
+		
 	}
 }

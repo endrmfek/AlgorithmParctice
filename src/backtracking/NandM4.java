@@ -31,12 +31,9 @@ public class NandM4 {
 		}
 		
 		
-		for(int i=1; i<=n; i++) {
-			
-			if(idx <= i) {
-				arr[depth] = i;
-				nAndm(depth+1 , i);
-			}
+		for(int i=1; i<=n; i++) {		
+			arr[depth] = i;
+			nAndm(depth+1 , i);
 		}
 	}
 	

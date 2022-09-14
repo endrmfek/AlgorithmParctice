@@ -3,6 +3,8 @@ package backtracking;
 import java.util.Scanner;
 
 public class NandM1 {
+	//n과 m이 주어질때 아래 조건을 만족하는 길이가 m인 수열을 모두구해.
+	//중복 x.
 	
 	public static int[] arr;
 	public static boolean[] visit;
@@ -19,7 +21,7 @@ public class NandM1 {
 	}
 	
 	private static void nAndm(int n, int m, int depth) {
-		if(m == depth) {
+		if (m == depth) {
 			for(int a : arr) {
 				System.out.print(a + " ");
 			}
@@ -27,13 +29,14 @@ public class NandM1 {
 			return;
 		}
 		
-		for(int i=0; i<n; i++) {
-			if(!visit[i]) { //방문하지 않았다면
+		for (int i=0; i<n; i++) {
+			if(!visit[i]) {
 				visit[i] = true;
-				arr[depth] =i+1;
-				nAndm(n, m, depth + 1);
+				arr[depth] = i+1;
+				nAndm(n, m, depth+1);
 				visit[i] = false;
 			}
 		}
+			
 	}
 }

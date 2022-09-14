@@ -2,6 +2,7 @@ package shortestPath;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -40,7 +41,7 @@ public class Dijkstra2 {
 	public static int[] d = new int[100001];
 	
 	public static void dijkstra(int start) {
-		PriorityQueue<node_d2> pq = new PriorityQueue<>();
+		PriorityQueue<node_d2> pq = new PriorityQueue<>(Comparator.comparing(node_d2::getDistance));
 		
 		pq.offer(new node_d2(start, 0));
 		d[start] = 0;
