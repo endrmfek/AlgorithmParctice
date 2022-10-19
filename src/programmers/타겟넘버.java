@@ -16,5 +16,5 @@ public class 타겟넘버 {
 		}	
 		return dfs(numbers, n+1, sum+numbers[n] , target) + dfs(numbers, n+1, sum-numbers[n], target);
 	}
-	// 백트래킹 응용
+	// 백트래킹 응용x`
 }

@@ -4,26 +4,26 @@ import java.util.Scanner;
 
 public class Boj_2775 {
 	public static void main(String[] args) {
-		int[][] dp= new int[15][15];
+		Scanner sc = new Scanner(System.in);
+		int[][] dp = new int[15][15];
+		//초기값 설정
 		for(int i=0; i<15; i++) {
-			dp[i][1] = 1;
-			dp[0][i] = i;
+			dp[i][1] =1; // i층 1호실은 1명만살고
+			dp[0][i] =i; //0층 i호실은 i명
 		}
-		
-		for(int i=1; i<15; i++) {
-			for(int j=2; j<15; j++) {
-				dp[i][j] = dp[i][j-1] + dp[i-1][j]; // i층에 j방 -> i층에 j-1방 + i-1층에 j방을 더해.
+		//dp값 설정
+		for(int i=1; i<15; i++) { //1층부터 14층까지
+			for(int j=2; j<15; j++) { // 2호부터 14호까지
+				//우리층 옆호 + 아래층 우리호
+				dp[i][j] = dp[i][j-1] + dp[i-1][j];
 			}
 		}
-		
-		Scanner sc = new Scanner(System.in);
 		int tc = sc.nextInt();
-		int k=0 , n=0;
 		while(tc-- > 0) {
-			k = sc.nextInt();
-			n = sc.nextInt();
-			
+			int k = sc.nextInt();
+			int n = sc.nextInt();
 			System.out.println(dp[k][n]);
 		}
+		
 	}
 }

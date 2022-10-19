@@ -48,7 +48,7 @@ public class 순위검색 {
 		
 	}
 	
-	static int binary(String key, int score) {
+	static int binary(String key, int score) { //이진탐색까지?
 		List<Integer> list = map.get(key);
 		int start = 0, end = list.size() -1;
 		

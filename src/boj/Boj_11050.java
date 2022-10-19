@@ -6,7 +6,7 @@ public class Boj_11050 {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
-		int m = sc.nextInt();
+		int k = sc.nextInt();
 		
 		int[][] dp = new int[n+1][n+1];
 		
@@ -22,6 +22,6 @@ public class Boj_11050 {
 			}
 		}
 		
-		System.out.println(dp[n][m]);
+		System.out.println(dp[n][k]);
 	}
 }
