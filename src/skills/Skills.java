@@ -105,7 +105,6 @@ public class Skills {
 	
 	
 	public ArrayList<Integer> divisor (int n) { //약수구하기
-		
 		int sqrt = (int) Math.sqrt(n);
 		ArrayList<Integer> divisor = new ArrayList<>();
 		for(int i=1; i<=sqrt; i++) {
@@ -127,9 +126,35 @@ public class Skills {
         int min= Integer.parseInt(temp[1]);       
         return hour+min;
     }
+
+	public int[] makeCounter(String[] arr) {
+		//Counter 만들기.
+		// ["red" , "blue", "red", "green" , "blue"] -> {red : 2 , blue : 2, green : 1}
+		List<Integer> answer = new ArrayList<>();
+		Map<String, Integer> counter = new LinkedHashMap<>();
+
+		for (String i : arr) {
+			counter.put(i, counter.getOrDefault(i, 0) + 1);
+		}
+
+		List<Entry<String, Integer>> list = new ArrayList<>(counter.entrySet()); //여기가 중요.
+
+		//값에 대해 내림차순 정렬
+		Collections.sort(list, (a,b) -> {
+			return b.getValue().compareTo(a.getValue()); //내림차순
+		});
+
+		for (Entry<String, Integer> entry : list) {
+			System.out.println(entry.getKey() + " : " + entry.getValue());
+			answer.add(Integer.parseInt(entry.getKey()));
+		}
+		return answer.stream().mapToInt(i->i).toArray();
+
+	}
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		int n = 1000;
 		
 		
 		// 행과 열을 한 단어로 줄때 숫자 or 영어로 변환 어떻게 할거야?
@@ -142,60 +167,42 @@ public class Skills {
 		Character.isLetter(data1.charAt(0));
 		
 		//int[]배열을 리스트로.
-		/*
-		 * ArrayList<Integer> a =(ArrayList<Integer>) Arrays.stream(numbers).boxed().collect(Collectors.toList());
-		 */
+		int[] numbers = new int[n + 1];
+		ArrayList<Integer> a =(ArrayList<Integer>) Arrays.stream(numbers).boxed().collect(Collectors.toList());
+
 		
 		//List를 int[]배열로
-		/*
-		 * answer.stream().mapToInt(Integer::intValue).toArray();
-		 */
+		List<Integer> answer = new ArrayList<>();
+		int[] answerToIntArr = answer.stream().mapToInt(Integer::intValue).toArray();
+
 		
 		//String을 int[]배열로 "12345" -> [1,2,3,4,5];
-		/*
-		 * Stream.of(numbers.split("")).mapToInt(Integer::parseInt).toArray();
-		 */
+		String stringNumber = "12345";
+		int[] stringToNumArr = Stream.of(stringNumber.split("")).mapToInt(Integer::parseInt).toArray();
+
 		
 		//List<Integer>를 정수로
-		/*
-		List<Integer> a = Arrays.asList(new Integer[]{1,2,3});
-		String num = a.stream().map(String::valueOf).collect(Collectors.joining());
+
+		List<Integer> arr = Arrays.asList(new Integer[]{1,2,3});
+		String num = arr.stream().map(String::valueOf).collect(Collectors.joining());
 		int number = Integer.valueOf(num);
-		*/
-		
-		
-		//Counter 만들기.
-		/*
-		Map<String, Integer> counter = new LinkedHashMap<>();
-		for (String i : arr) { 
-			counter.put(i, counter.getOrDefault(i, 0) + 1);
-		}
-		
-		List<Entry<String, Integer>> list = new ArrayList<>(counter.entrySet()); //여기가 중요.
-		Collections.sort(list, (a,b) -> {
-			return b.getValue().compareTo(a.getValue()); //내림차순
-		});
-		
-		for (Entry<String, Integer> entry : list) {
-			System.out.println(entry.getKey() + " : " + entry.getValue());
-			answer.add(Integer.parseInt(entry.getKey()));
-		}
-		return answer.stream().mapToInt(i->i).toArray();
-		*/
+
+
+
 		
 		//정렬 기준 바꾸기
-		/*
-    	answerList.sort(new Comparator<int[]>() {
-    		@Override
-    		public int compare(int[] o1, int[] o2) {
-    			for(int i=10; i<=0; i++) {
-    				if(o1[i] != o2[i]) {
-    					return o2[i] - o1[i];
-    				}
-    			}
-    			return 0;
-    		}
+		List<int[]> answerList = new ArrayList<>();
+    	answerList.sort(new Comparator<>() {
+			@Override
+			public int compare(int[] o1, int[] o2) {
+				for (int i = 10; i >= 0; i--) {
+					if (o1[i] != o2[i]) {
+						return o2[i] - o1[i];
+					}
+				}
+				return 0;
+			}
 		});
-    	*/
+
 	}
 }

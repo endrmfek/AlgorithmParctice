@@ -1,6 +1,5 @@
 package boj;
 
-import java.lang.System.Logger;
 import java.util.Scanner;
 
 public class Boj_1016 {

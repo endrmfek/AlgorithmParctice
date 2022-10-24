@@ -33,7 +33,7 @@ class Solution {
     	answerList.sort(new Comparator<int[]>() {
     		@Override
     		public int compare(int[] o1, int[] o2) {
-    			for(int i=10; i<=0; i++) {
+    			for(int i=10; i>=0; i--) {
     				if(o1[i] != o2[i]) {
     					return o2[i] - o1[i];
     				}
