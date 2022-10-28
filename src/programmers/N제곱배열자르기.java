@@ -18,4 +18,5 @@ public class N제곱배열자르기 {
         
         return answer;
     }
+
 }
