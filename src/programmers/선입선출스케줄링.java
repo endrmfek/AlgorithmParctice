@@ -9,117 +9,133 @@ public class 선입선출스케줄링 {
         //6 -> [1,2,3]
         //1. n이 cores.length 보다 작을때
         //2. 클때
-
         int answer = 0;
-        int N = n;
-        if(N <= cores.length) return N;
+        int work = n;
+        if(n <= cores.length) {
+            return n;
+        }
+        work -=cores.length;
 
-        //시간 0 일때 이미 할당하고 시작.
-        N -= cores.length;
-
-        PriorityQueue<Core> pq = new PriorityQueue<Core>((o1,o2) -> {
+        //시간순으로 정렬을 하는거 아닐까?
+        PriorityQueue<Core> pq = new PriorityQueue<>((o1, o2) -> {
             if(o1.time == o2.time) {
-                return o1.index - o2.index;
+                return o1.index-o2.index;
             }
-            return o1.time - o2.time;
+            return o1.time-o2.time;
         });
 
-        for(int i=0; i< cores.length; i++) {
-            pq.add(new Core(i, cores[i])); // [1,2,3]
+        //time = 0일때.
+        for(int i=0; i<cores.length; i++) {
+            pq.add(new Core(i, cores[i]));
         }
 
         int time = 1;
-        while(N>0) { //지금 3
+        while(work > 0) {
+            Core now = pq.poll();
+            System.out.print("work " + work + " ");
+            System.out.println(now.toString());
 
-            Core now = pq.poll(); // 1
-
-            if(now.time == time) {
-                n--; //2
-            } else if(now.time > time){
-                //현재시간보다 core의 다음처리가 큰 경우
+            if (now.time == time) {
+                work--;
+            } else if(now.time > time) {
                 time = now.time;
-                n--;
+                work--;
             }
 
-            if(n == 0) {
+
+            if(work == 0) {
                 answer = now.index + 1;
             } else {
-                pq.add(new Core(now.index , time+cores[now.index]));
+                pq.add(new Core(now.index , time + cores[now.index]));
             }
-
-            return answer;
-
         }
-
-
         return answer;
     }
 
-    //2분탐색
     public int solution2(int n, int[] cores) {
-        //n -> cores
-        //6 -> [1,2,3]
-        //1. n이 cores.length 보다 작을때
-        //2. 클때
-
         int answer = 0;
+
         int min = 0;
-        int max = cores[0]*n; // 시간의 최대값?
+        int max = cores[0] * n; // 하나하나씩 처리하는게 시간이 제일 오래걸리지.
 
         int time = 0;
-        int m=0; // time까지 처리한 작업량?
+        int m = 0;
 
         while(min <= max) {
-            int mid =(min + max) / 2;
+            int mid = (min + max) / 2; // 최적의 시간
 
-            int count = Countwork(mid, cores);
+            int count = countWork(mid, cores); // 그시간에 작업처리 얼마나?
 
-            if(count >= n) {
+            if(count >= n) { //max를 구하기때문에
                 max = mid-1;
-                time = mid;
-                m = count;
+                time = mid; // 최적의 시간에
+                m = count; // 몇개를 할건지
             } else {
                 min = mid+1;
             }
         }
 
         m -= n;
-        for(int i=cores.length-1; i>=0; i--) {
+        for(int i= cores.length-1; i>=0; i--) {
             if(time % cores[i] == 0) {
-                if( m==0) {
+                if(m==0) {
                     answer = i+1;
                     break;
                 }
                 m--;
             }
         }
-
-
         return answer;
     }
-
-    private int Countwork(int time, int[] cores) {
-        if(time == 0) {
+    int countWork(int time, int[] cores) {
+        if(time ==0) {
             return cores.length;
         }
-
         int count = cores.length;
 
         for(int i=0; i<cores.length; i++) {
-            count += (time/cores[i]);
+            count += (time / cores[i]);
         }
         return count;
-
     }
 
+    public int solution(int n, int[] cores) {
+        int answer = 0;
+        int start = 1;
+        while(true) {
+            for(int i=0; i<cores.length; i++) {
+                if(start % cores[i] == 0) {
+                    n--;
+                    if(n == 0) {
+                        return i+1;
+                    }
+                }
+                start++;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        선입선출스케줄링 a = new 선입선출스케줄링();
+        System.out.println(a.solution(10, new int[]{2,3,4}));
+    }
 }
+
+
 
 class Core {
     int index;
     int time;
-
     Core(int index, int time) {
         this.index = index;
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "Core{" +
+                "index=" + index +
+                ", time=" + time +
+                '}';
     }
 }
