@@ -3,6 +3,18 @@ package programmers;
 import java.util.PriorityQueue;
 
 public class 선입선출스케줄링 {
+    public int solution3(int n, int[] core) {
+        int cnt = 0;
+        while(true){
+
+            for(int i = 0 ; i < core.length ; i++){
+                if(cnt % core[i] == 0 && --n == 0) return i+1;
+            }
+            cnt++;
+        }
+    }
+
+
     //하나도 이해 안되쥬 ㅋㅋㅋㅋㅋ
     public int solution1(int n, int[] cores) {
         //n -> cores
@@ -32,9 +44,8 @@ public class 선입선출스케줄링 {
         int time = 1;
         while(work > 0) {
             Core now = pq.poll();
-            System.out.print("work " + work + " ");
-            System.out.println(now.toString());
-
+//            System.out.print("work " + work + " ");
+//            System.out.println(now.toString());
             if (now.time == time) {
                 work--;
             } else if(now.time > time) {
@@ -87,6 +98,7 @@ public class 선입선출스케줄링 {
         }
         return answer;
     }
+
     int countWork(int time, int[] cores) {
         if(time ==0) {
             return cores.length;
