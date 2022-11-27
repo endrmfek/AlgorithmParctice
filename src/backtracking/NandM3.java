@@ -17,7 +17,8 @@ public class NandM3 {
 		nAndm(0);
 		System.out.println(sb);
 	}
-	
+
+	//중복없는 순열 4p2 -> 1111 , 1112 , 1113
 	private static void nAndm(int depth) {
 		if(depth == m) {
 			for(int a : arr) {
