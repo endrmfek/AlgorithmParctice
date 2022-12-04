@@ -19,7 +19,8 @@ public class NandM1 {
 		
 		nAndm(n,m,0);
 	}
-	
+
+	//depth는 자리수, visited는 중복체크
 	private static void nAndm(int n, int m, int depth) {
 		if (m == depth) {
 			for(int a : arr) {

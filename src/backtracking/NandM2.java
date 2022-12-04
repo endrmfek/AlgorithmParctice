@@ -18,7 +18,9 @@ public class NandM2 {
 //		nAndm(0, 0);
 		dfs(0);
 	}
-	
+
+	// depth는 자리수
+	// index부터 돌려서 순서를
 	private static void nAndm(int idx, int depth) {
 		if(depth == m) {
 			for(int a : arr) {

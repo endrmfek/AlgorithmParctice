@@ -20,6 +20,7 @@ public class NandM4 {
 		nAndm(0, 1);
 		System.out.println(sb);
 	}
+
 	//중복조합? -> 4C2 -> 11,12,13,14 / 22,23,24 / 33,34 / 44
 	private static void nAndm(int depth, int idx) {
 		if(depth == m) {
