@@ -16,7 +16,7 @@ class Solution {
             for(int i=0; i<chars.length; i++) {
                 char z = chars[i];
 
-                if(stack.size() > 1) { //stack에 원소가 2개이상이라면
+                if(stack.size() >= 2) { //stack에 원소가 2개이상이라면
                     char y = stack.pop();
                     char x = stack.pop();
 
