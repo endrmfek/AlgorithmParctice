@@ -1,31 +1,38 @@
 import java.util.*;
 class Solution {
     //2021년 1월 5일 -> 2022년 1월 5일 파기
-    public int[] solution(String today, String[] terms, String[] privacies) {
+    public static List solution(String today, String[] terms, String[] privacies) {
+        //모든달은 28일
+        //파기해야될 개인정보의 번호를 오름차순으로
         List<Integer> answer = new ArrayList<>();
-        Map<String, Integer> termMap = new HashMap<>();
-        int date = getDate(today);
+        String[] days = today.split("\\.");
+        int tYear = Integer.parseInt(days[0]);
+        int tMonth = Integer.parseInt(days[1]);
+        int tDay = Integer.parseInt(days[2]);
+        int std = (tYear*28*12) + (tMonth*28) + tDay; // 일로 통합
 
-        for (String s : terms) {
-            String[] term = s.split(" ");
 
-            termMap.put(term[0], Integer.parseInt(term[1]));
+        Map<String, Integer> term = new HashMap<>();
+        for(String t : terms) {
+            String[] data = t.split(" "); // A 6
+            term.put(data[0] , Integer.parseInt(data[1]));
         }
-        for (int i = 0; i < privacies.length; i++) {
-            String[] privacy = privacies[i].split(" ");
+        int index = 1;
+        for(String p : privacies) {
+            String[] data = p.split(" ");
+            String[] dayData = data[0].split("\\.");
+            String termData = data[1];
+            int plus = term.get(termData);
 
-            if (getDate(privacy[0]) + (termMap.get(privacy[1]) * 28) <= date) {
-                answer.add(i + 1);
+            int yy = Integer.parseInt(dayData[0]);
+            int mm = Integer.parseInt(dayData[1]);
+            int dd = Integer.parseInt(dayData[2]);
+
+            if (std >=(yy*28*12 + mm*28 + plus*28 + dd)) {
+                answer.add(index);
             }
+            index++;
         }
-        return answer.stream().mapToInt(integer -> integer).toArray();
-    }
-
-    private int getDate(String today) {
-        String[] date = today.split("\\.");
-        int year = Integer.parseInt(date[0]);
-        int month = Integer.parseInt(date[1]);
-        int day = Integer.parseInt(date[2]);
-        return (year * 12 * 28) + (month * 28) + day;
+        return answer;
     }
 }
