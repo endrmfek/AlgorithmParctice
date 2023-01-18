@@ -20,8 +20,7 @@ class Solution {
             int msgIndex = i;
             StringBuilder sb = new StringBuilder();
             sb.append(msg.charAt(i)); // K
-            int temp = msgIndex;
-
+            
             while(dict.containsKey(sb.toString()) && ++msgIndex < msg.length()) {
                 --msgIndex;
                 sb.append(msg.charAt(++msgIndex)); // KA -> X
@@ -36,6 +35,7 @@ class Solution {
 
         return answer.stream().mapToInt(Integer::intValue).toArray();
     }
+
 
 
 }
