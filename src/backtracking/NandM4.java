@@ -31,7 +31,7 @@ public class NandM4 {
 			return;
 		}
 
-		for(int i=1; i<=n; i++) {		
+		for(int i=idx; i<=n; i++) {
 			arr[depth] = i;
 			nAndm(depth+1 , i);
 		}
