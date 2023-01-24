@@ -23,7 +23,6 @@ public class 시소짝꿍 {
             if(map.containsKey(w)) {
                 answer+= map.get(w);
             }
-
             //현재 값으로 만들 수 있는 시소값
             map.put(w , map.getOrDefault(w , 0) + 1); // 같은 거리에 있거나
             map.put(w*3/2 , map.getOrDefault(w*3/2 , 0) + 1); // 2m - 3m
