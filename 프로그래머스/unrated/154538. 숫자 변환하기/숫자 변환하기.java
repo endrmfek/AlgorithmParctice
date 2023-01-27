@@ -1,38 +1,32 @@
 import java.util.*;
 class Solution {
-     public int solution(int x, int y, int n) {
-        int cnt = 0;
-		Queue<Integer> q = new LinkedList<>();
-		Set<Integer> hs = new HashSet<>();
-		q.offer(x);
-		
-		while(!q.isEmpty()) {
-			int size = q.size();
-			for(int i=0 ; i<size ; i++) {
-				if(q.peek()==y) {
-					return cnt;
-				}
-				helper(q.poll(), y, n, hs, q);
-			}
-			cnt++;
-		}
-		return -1;
+     public static int solution(int x, int y, int n) {
+        
+        int[] dp = new int[y+1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[x] = 0;
+        
+        for(int i=x; i<=y-n; i++) {
+
+            if(dp[i] == Integer.MAX_VALUE) {
+                continue;
+            }
+
+            if(i+n <= y) {
+                dp[i+n] =Math.min(dp[i]+1, dp[i+n]);
+            }
+
+            if(i*2 <= y) {
+                dp[i*2] = Math.min(dp[i]+1, dp[i*2]);
+            }
+
+            if(i*3 <= y) {
+                dp[i*3] = Math.min(dp[i]+1, dp[i*3]);
+            }
+
+        }
+
+        return (dp[y] == Integer.MAX_VALUE) ? -1 : dp[y];
     }
-	
-	public static void helper(int num, int y, int n, Set<Integer> hs, Queue<Integer> q) {
-		if(num+n <= y && !hs.contains(num+n)) {
-			hs.add(num+n);
-			q.offer(num+n);
-		}
-		if(num*2 <= y && !hs.contains(num*2)) {
-			hs.add(num*2);
-			q.offer(num*2);
-		}
-		if(num*3 <= y && !hs.contains(num*3)) {
-			hs.add(num*3);
-			q.offer(num*3);
-		}
-		return;
-	}
 
 }
