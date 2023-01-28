@@ -1,4 +1,4 @@
-package programmers;
+package programmers.dfs;
 
 import java.util.*;
 
@@ -25,21 +25,16 @@ public class 혼자놀기의달인 {
                 int index = q.poll(); // 1
                 int value = cards[index-1]; // 8
 
-//                if(index == value) {
-//                    data.get(i).add(value);
-//                    data.add(new ArrayList<>());
-//                    continue;
-//                }
-                if(!visited[value]) { //3-3일땐?..
+                if(!visited[value]) {
                     q.add(value);
                     visited[value] = true;
                     data.get(i+1).add(value);
                 } else { //그룹으로 묶어야되는데 어떻게 묶을까
-                    data.add(new ArrayList<>());
                     break;
                 }
             }
         }
+
         int[] sum = new int[data.size()+1];
         for(int i=1; i<data.size(); i++) {
             sum[i] = data.get(i).size();
@@ -47,10 +42,28 @@ public class 혼자놀기의달인 {
         sum = Arrays.stream(sum).boxed().sorted(Collections.reverseOrder()).mapToInt(Integer::intValue).toArray();
         System.out.println(Arrays.toString(sum));
 
-
-
         return sum[0]*sum[1];
     }
+
+    public int solution2(int[] cards) {
+        int n = cards.length;
+        boolean[] visited = new boolean[n];
+        List<Integer> groups = new ArrayList<>();
+
+        for(int i=0; i<n; i++) {
+            int now = i;
+            int cnt = 0;
+            while(!visited[now]) {
+                cnt++;
+                visited[now] = true;
+                now = cards[now]-1;
+            }
+            groups.add(cnt);
+        }
+        groups.sort(Comparator.reverseOrder());
+        return (groups.size() == 1) ? 0 : groups.get(0) * groups.get(1);
+    }
+
 
     public static void main(String[] args) {
         혼자놀기의달인 a = new 혼자놀기의달인();

@@ -20,8 +20,9 @@ public class 전력망을둘로나누기 {
         }
         
         for(int[] wire : wires) {
-        	int a = bfs(wire[0], wire[1] , n);
-        	int b = bfs(wire[1], wire[0] , n);
+        	int a = bfs(wire[0], wire[1] , n);	//-> wire[0] 부터 탐색 시작 , wire[1] 만나면 탐색 종료.
+//        	int b = bfs(wire[1], wire[0] , n);
+			int b = n-a;
         	answer = Math.min(answer, Math.abs(a-b));
         }
         

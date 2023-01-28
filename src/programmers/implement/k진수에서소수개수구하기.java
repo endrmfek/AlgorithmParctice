@@ -1,4 +1,4 @@
-package programmers;
+package programmers.implement;
 
 public class k진수에서소수개수구하기 {
 	public static int solution(int n, int k) {

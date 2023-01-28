@@ -3,6 +3,9 @@ package backtracking;
 import java.util.Scanner;
 
 public class NandM4 {
+
+//	https://www.acmicpc.net/problem/15652
+	
 	public static int n,m;
 	public static int[] arr;
 	public static boolean[] visit;

@@ -1,8 +1,6 @@
 package programmers.dp;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class 숫자변환하기 {
 
@@ -14,56 +12,66 @@ public class 숫자변환하기 {
 
     //x to y
     public static int solution(int x, int y, int n) {
-        int answer = 0;
 
         int[] dp = new int[y+1];
-        for(int i=x; i<=y; i=i+n) {
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[x] = 0;
 
-            // y-n 빼는게 더 클때?
-            //
-            if( y-n < y/3) {
-                if(i-n >= x) {
-                    dp[i] =Math.max(dp[i] , dp[i-n] + 1); //3
-                }
+        for(int i=x; i<=y-n; i++) {
 
-                if(i % 2 == 0 ) {
-                    dp[i] = Math.min(dp[i/2]+1 , dp[i]);
-                }
+            if(dp[i] == Integer.MAX_VALUE) {
+                continue;
+            }
 
-                if(i%3 == 0 ) {
-                    dp[i] = Math.min(dp[i/3]+1 , dp[i]);
-                }
-            } else {
-                if(i % 2 == 0 ) {
-                    dp[i] = Math.min(dp[i/2]+1 , dp[i]);
-                }
+            if(i+n <= y) {
+                dp[i+n] =Math.min(dp[i]+1, dp[i+n]);
+            }
 
-                if(i%3 == 0 ) {
-                    dp[i] = Math.min(dp[i/3]+1 , dp[i]);
-                }
+            if(i*2 <= y) {
+                dp[i*2] = Math.min(dp[i]+1, dp[i*2]);
+            }
 
-                if(i-n >= x) {
-                    dp[i] =Math.min(dp[i] , dp[i-n] + 1); //3
-                }
+            if(i*3 <= y) {
+                dp[i*3] = Math.min(dp[i]+1, dp[i*3]);
             }
 
         }
 
-        return (dp[y] == 0) ? -1 : dp[y];
+        return (dp[y] == Integer.MAX_VALUE) ? -1 : dp[y];
     }
 
-    public static int solution2(int x, int y, int n) {
-        int answer = 0;
-        int max = 0;
-
-
-
+    public int solution2(int x, int y, int n) {
+        int answer = bfs(x, y, n);
         return answer;
+    }
+
+    public int bfs(int x, int y, int n) {
+        Queue<Integer> q = new LinkedList<>();
+        Map<Integer, Integer> visit = new HashMap<>();
+        q.offer(x);
+        while(!q.isEmpty()) {
+            int num = q.poll();
+            int cnt = visit.getOrDefault(num, 0);
+            if(num == y) return cnt;
+            if(num + n <= y && !visit.containsKey(num + n)) {
+                q.offer(num + n);
+                visit.put(num + n, cnt + 1);
+            }
+            if(num * 2 <= y && !visit.containsKey(num * 2)) {
+                q.offer(num * 2);
+                visit.put(num * 2, cnt + 1);
+            }
+            if(num * 3 <= y && !visit.containsKey(num * 3)) {
+                q.offer(num * 3);
+                visit.put(num * 3, cnt + 1);
+            }
+        }
+        return -1;
     }
 
 
 
     public static void main(String[] args) {
-        System.out.println(solution2(10,40,5));
+        System.out.println(solution(10,40,5));
     }
 }

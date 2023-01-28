@@ -5,10 +5,11 @@ import java.util.Scanner;
 public class NandM1 {
 	//n과 m이 주어질때 아래 조건을 만족하는 길이가 m인 수열을 모두구해.
 	//중복 x.
-	
+
+	//https://www.acmicpc.net/problem/15649
+
 	public static int[] arr;
 	public static boolean[] visit;
-	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		int n = sc.nextInt();
