@@ -30,6 +30,10 @@ public class 시소짝꿍 {
             map.put(w*4/3 , map.getOrDefault(w*4/3 , 0) + 1); //3m -4m
         }
 
+        for (Double aDouble : map.keySet()) {
+            
+        }
+
         return answer;
     }
 
