@@ -3,10 +3,11 @@ package programmers;
 import java.util.PriorityQueue;
 
 public class 선입선출스케줄링 {
+    //마지막 작업을 수행하는 코어의 번호
+    //core = {1,2,3}
     public int solution3(int n, int[] core) {
         int cnt = 0;
         while(true){
-
             for(int i = 0 ; i < core.length ; i++){
                 if(cnt % core[i] == 0 && --n == 0) return i+1;
             }
@@ -44,11 +45,10 @@ public class 선입선출스케줄링 {
         int time = 1;
         while(work > 0) {
             Core now = pq.poll();
-//            System.out.print("work " + work + " ");
-//            System.out.println(now.toString());
-            if (now.time == time) {
+
+            if (now.time == time) { //지금 시간이 맞으면
                 work--;
-            } else if(now.time > time) {
+            } else if(now.time > time) { //지금 시간이 안맞으면
                 time = now.time;
                 work--;
             }
@@ -112,24 +112,28 @@ public class 선입선출스케줄링 {
     }
 
     public int solution(int n, int[] cores) {
-        int answer = 0;
-        int start = 1;
+        int time = 0;
         while(true) {
+            //맨 처음 루틴 -> 0번째엔 모두 다 배치가 가능
+            //첫 번째 시간 -> 1 처리하는놈
+            //두 번째 시간 -> 1처리하는놈 2처리하는놈
+            //세 번째 시간 -> 1처리하는놈 3처리하는놈
+            //네 번재 시간 -> 1 , 2, 4처리하는놈
             for(int i=0; i<cores.length; i++) {
-                if(start % cores[i] == 0) {
+                if(time % cores[i] == 0) {
                     n--;
                     if(n == 0) {
                         return i+1;
                     }
                 }
-                start++;
             }
+            time++;
         }
     }
 
     public static void main(String[] args) {
         선입선출스케줄링 a = new 선입선출스케줄링();
-        System.out.println(a.solution(10, new int[]{2,3,4}));
+        System.out.println(a.solution(6, new int[]{1,2,3}));
     }
 }
 
