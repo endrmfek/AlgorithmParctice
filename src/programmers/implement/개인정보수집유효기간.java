@@ -31,7 +31,7 @@ public class 개인정보수집유효기간 {
             int mm = Integer.parseInt(dayData[1]);
             int dd = Integer.parseInt(dayData[2]);
 
-            if (plus >=(yy*28*12 + mm*28 + plus*28 + dd)) {
+            if (std >= (yy*28*12 + mm*28 + plus*28 + dd) ) {
                 answer.add(index);
             }
             index++;
