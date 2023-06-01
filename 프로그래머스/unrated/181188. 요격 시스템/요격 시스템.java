@@ -6,19 +6,15 @@ class Solution {
         Arrays.sort(targets, (o1,o2) -> {
             return o1[1]-o2[1];
         });
-        
+
         int last = -1;
-        for(int i=0; i<targets.length; i++) {
-            if(last == -1) {
-                answer++;
-                last = targets[i][1] - 1;
+        for(int[] target : targets) {
+            if(target[0] < last) {
                 continue;
+            } else {
+                answer++;
+                last = target[1];
             }
-            
-            if(last >= targets[i][0] && last <= targets[i][1]) continue;
-            
-            answer++;
-            last = targets[i][1] -1;
         }
         return answer;
     }
