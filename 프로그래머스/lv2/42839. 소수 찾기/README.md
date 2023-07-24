@@ -1,10 +1,10 @@
 # [level 2] 소수 찾기 - 42839 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42839) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42839?language=python3) 
 
 ### 성능 요약
 
-메모리: 75.9 MB, 시간: 9.24 ms
+메모리: 13.2 MB, 시간: 6.97 ms
 
 ### 구분
 
@@ -12,7 +12,7 @@
 
 ### 채점결과
 
-<br/>정확성: 100.0<br/>합계: 100.0 / 100.0
+Empty
 
 ### 문제 설명
 
@@ -56,8 +56,6 @@
 <ul>
 <li>11과 011은 같은 숫자로 취급합니다.</li>
 </ul>
-
-<p><a href="http://2009.nwerc.eu/results/nwerc09.pdf" target="_blank" rel="noopener">출처</a></p>
 
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://programmers.co.kr/learn/challenges
