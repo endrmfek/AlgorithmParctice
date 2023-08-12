@@ -7,14 +7,13 @@ class Solution:
         #이진탐색으로 찾아야겠다. 그치?
         left = 1
         right = n
-        data = []
+        minValue = n
         while left <= right:
-            mid = (left + right) // 2
+            mid = left + (right - left) // 2
             
             if isBadVersion(mid):
-                data.append(mid)
                 right = mid - 1
             else:
                 left = mid + 1
         
-        return min(data)
+        return right+1
