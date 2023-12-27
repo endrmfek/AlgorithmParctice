@@ -10,8 +10,8 @@ public class Main {
     //상태를 저장하는 배열 하나를 추가해야될듯?
     static int[][] map;
     static int[][][] visited;
-    static int[] dx = {-1, 1, 0, 0};
-    static int[] dy = {0, 0, -1, 1};
+    static int[] dr = {-1, 1, 0, 0};
+    static int[] dc = {0, 0, -1, 1};
     static int r,c;
 
     public static void main(String[] args) throws IOException {
@@ -48,38 +48,37 @@ public class Main {
         while(!q.isEmpty()) {
             int[] now = q.poll();
             int isBroken = now[0];
-            int nowX = now[1];
-            int nowY = now[2];
+            int nowR = now[1];
+            int nowC = now[2];
 
             for(int i=0; i<4; i++) {
-                int nx = nowX + dx[i];
-                int ny = nowY + dy[i];
+                int nr = nowR + dr[i];
+                int nc = nowC + dc[i];
 
-                if (nx >=0 && nx <r && ny >=0 && ny<c) {
-                    if(map[nx][ny] == 0) { //갈수 있어?
-                        if(visited[isBroken][nx][ny] == 0) { //안가봤으면
-                            visited[isBroken][nx][ny] = visited[isBroken][nowX][nowY] + 1;
-                            q.add(new int[]{isBroken, nx, ny});
-                            if(nx == r-1 && ny == c-1) {
-                                return visited[isBroken][nx][ny];
+                if (0 <= nr && nr <r && 0 <= nc && nc <c) {
+                    if(map[nr][nc] == 0) { //갈수 있어?
+                        if(visited[isBroken][nr][nc] == 0) { //안가봤으면
+                            visited[isBroken][nr][nc] = visited[isBroken][nowR][nowC] + 1;
+                            q.add(new int[]{isBroken, nr, nc});
+                            if(nr == r-1 && nc == c-1) {
+                                return visited[isBroken][nr][nc];
                             }
                         }
                     } else { //갈수 없어?
                         if(isBroken == 0) { //아직 한번도 안부셨을때만 갈 수 있겠지
-                            if(visited[1][nx][ny] == 0) {
-                                visited[1][nx][ny] = visited[isBroken][nowX][nowY] + 1;
-                                q.add(new int[]{1, nx, ny});
-                                if(nx == r-1 && ny == c-1) {
-                                    return visited[1][nx][ny];
+                            if(visited[1][nr][nc] == 0) {
+                                visited[1][nr][nc] = visited[isBroken][nowR][nowC] + 1;
+                                q.add(new int[]{1, nr, nc});
+                                if(nr == r-1 && nc == c-1) {
+                                    return visited[1][nr][nc];
                                 }
                             }
-
                         }
-
                     }
                 }
             }
         }
+        //r-1, c-1 까지 못가면
         return -1;
     }
 }
