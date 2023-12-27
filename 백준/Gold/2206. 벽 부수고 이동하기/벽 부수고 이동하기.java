@@ -1,121 +1,85 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
-public class Main { // 벽 하나를 부수는게 어렵네..
+import static java.lang.System.exit;
 
-	static class Node{
-		private int x;
-		private int y;
-		private int dist;
-		private int wall;
-		
-		public Node(int x, int y, int dist, int wall) {
-			this.x = x;
-			this.y = y;
-			this.dist = dist;
-			this.wall = wall;
-		}
+public class Main {
 
-		public int getX() {
-			return x;
-		}
+    //최단거리 -> BFS로 풀면돼.
+    //벽하나를 부수는 경우 -> 이걸 어떻게 해결할거야?
+    //상태를 저장하는 배열 하나를 추가해야될듯?
+    static int[][] map;
+    static int[][][] visited;
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1};
+    static int r,c;
 
-		public int getY() {
-			return y;
-		}
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		public int getDist() {
-			return dist;
-		}
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        r = Integer.parseInt(st.nextToken());
+        c = Integer.parseInt(st.nextToken());
 
-		public int getWall() {
-			return wall;
-		}
-		
-		
+        map = new int[r][c];
+        visited = new int[2][r][c];
 
-	}
-	
-	public static int[][] map, visit;
-	public static int N, M, answer;
-	public static int[] dx = {0,0,-1,1};
-	public static int[] dy = {1,-1,0,0};
-	
-	public static Queue<Node> q;
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		N = sc.nextInt();
-		M = sc.nextInt();
-		sc.nextLine();
-		
-		map = new int[N][M];
-		visit = new int[N][M];
-		
-		for(int i=0; i<N; i++) {
-			String s = sc.nextLine();
-			for(int j=0; j<M; j++) {
-				map[i][j] = s.charAt(j)-'0';
-				visit[i][j] = Integer.MAX_VALUE;
-			}
-		}
-		
-		answer = Integer.MAX_VALUE;
-		
-		bfs(0,0);
-		
-		if(answer == Integer.MAX_VALUE) System.out.println(-1);
-		else System.out.println(answer);
-		
-//		for(int i=0; i<N; i++) {
-//			for(int j=0; j<M; j++) {
-//				System.out.print(visit[i][j] + " ");
-//			}
-//			System.out.println();
-//		}
-	}
-	
-	public static void bfs(int x, int y) {
-		q = new LinkedList<>();
-		
-		q.offer(new Node(x,y,1,0)); //이동거리, 공사횟수
-		visit[x][y] = 0;
-		
-		while(!q.isEmpty()) {
-			Node now = q.poll();
-			
-			int nowX = now.getX();
-			int nowY = now.getY();
-			
-			if(nowX == N-1 && nowY == M-1) {
-				answer = now.dist;
-				break;
-			}
-			
-			for(int i=0; i<4; i++) {
-				int nx = nowX + dx[i];
-				int ny = nowY + dy[i];
-				
-				if(nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
-				
-				if(visit[nx][ny] <= now.getWall()) continue;
-				
-			
-				if(map[nx][ny] == 0) {
-					visit[nx][ny] = now.getWall();
-					q.offer(new Node(nx, ny, now.dist+1, now.getWall()));
-						
-				} else { // map[nx][ny] == 1 일때
-					if(now.getWall() == 0) {
-						visit[nx][ny] = now.getWall() + 1;
-						q.offer(new Node(nx,ny,now.dist+1, now.getWall()+1));
-					}	
-				}
-			}
-					
-		}
-		
-	}
-	
+        for(int i=0; i<r; i++) {
+            String row = br.readLine();
+            for(int j=0; j<c; j++) {
+                map[i][j] = row.charAt(j) - '0';
+            }
+        }
+
+        if (r == 1 && c == 1) {
+            System.out.println(1);
+            exit(0);
+        }
+
+        System.out.println(bfs());
+    }
+
+    public static int bfs() {
+        Queue<int[]> q = new LinkedList<>();
+        q.add(new int[]{0,0,0});
+        visited[0][0][0] = 1;
+
+        //다른건 벽부수는거 하나잖아.
+        while(!q.isEmpty()) {
+            int[] now = q.poll();
+            int isBroken = now[0];
+            int nowX = now[1];
+            int nowY = now[2];
+
+            for(int i=0; i<4; i++) {
+                int nx = nowX + dx[i];
+                int ny = nowY + dy[i];
+
+                if (nx >=0 && nx <r && ny >=0 && ny<c) {
+                    if(map[nx][ny] == 0) { //갈수 있어?
+                        if(visited[isBroken][nx][ny] == 0) { //안가봤으면
+                            visited[isBroken][nx][ny] = visited[isBroken][nowX][nowY] + 1;
+                            q.add(new int[]{isBroken, nx, ny});
+                            if(nx == r-1 && ny == c-1) {
+                                return visited[isBroken][nx][ny];
+                            }
+                        }
+                    } else { //갈수 없어?
+                        if(isBroken == 0) { //아직 한번도 안부셨을때만 갈 수 있겠지
+                            if(visited[1][nx][ny] == 0) {
+                                visited[1][nx][ny] = visited[isBroken][nowX][nowY] + 1;
+                                q.add(new int[]{1, nx, ny});
+                                if(nx == r-1 && ny == c-1) {
+                                    return visited[1][nx][ny];
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 }
